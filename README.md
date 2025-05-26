@@ -356,6 +356,25 @@ http.createServer(async (req, res) => {
   // ...
 });
 ```
+
+**CommonJS environments**
+
+This package also supports usage in CommonJS environments via dynamic imports:
+
+```js
+// In a CommonJS file
+(async () => {
+  // Using the primary API
+  const { createConnection } = await import('@playwright/mcp');
+  const connection = await createConnection({ browser: { launchOptions: { headless: true } } });
+  
+  // OR using the createServer alias (both functions are identical)
+  const { createServer } = await import('@playwright/mcp');
+  const server = await createServer({ browser: { launchOptions: { headless: true } } });
+  
+  // Use connection/server...
+})();
+```
 </details>
 
 ### Tools

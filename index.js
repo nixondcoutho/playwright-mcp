@@ -17,4 +17,9 @@
 
 // ESM entry point
 import { createConnection } from './lib/index.js';
+
+// Export createConnection as the primary API
 export { createConnection };
+
+// Export createServer as an alias for createConnection for backward compatibility
+export const createServer = createConnection;

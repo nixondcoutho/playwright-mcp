@@ -20,13 +20,31 @@
 // This file enables CommonJS users to use @playwright/mcp via dynamic imports
 // Usage example:
 // (async () => {
+//   const { createConnection } = await import("@playwright/mcp");
+//   const connection = await createConnection({ port: 3000 });
+//   // OR
 //   const { createServer } = await import("@playwright/mcp");
 //   const server = await createServer({ port: 3000 });
 // })();
 
-module.exports = {
-  createConnection: async (...args) => {
+// Define both functions first
+async function createConnection(...args) {
+  const { createConnection } = await import('../index.js');
+  return createConnection(...args);
+}
+
+async function createServer(...args) {
+  try {
+    const { createServer } = await import('../index.js');
+    return createServer(...args);
+  } catch (e) {
     const { createConnection } = await import('../index.js');
     return createConnection(...args);
   }
-};
+}
+
+// Export both functions
+module.exports = { createConnection, createServer };
+
+// Add default export for ESM compatibility
+module.exports.default = module.exports;
