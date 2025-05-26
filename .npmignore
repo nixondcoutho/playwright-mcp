@@ -5,3 +5,4 @@ LICENSE
 !cli.js
 !index.*
 !config.d.ts
+!cjs/**/*.cjs

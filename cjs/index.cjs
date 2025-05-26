@@ -1,4 +1,3 @@
-#!/usr/bin/env node
 /**
  * Copyright (c) Microsoft Corporation.
  *
@@ -15,6 +14,19 @@
  * limitations under the License.
  */
 
-// ESM entry point
-import { createConnection } from './lib/index.js';
-export { createConnection };
+// CommonJS wrapper for ESM module
+'use strict';
+
+// This file enables CommonJS users to use @playwright/mcp via dynamic imports
+// Usage example:
+// (async () => {
+//   const { createServer } = await import("@playwright/mcp");
+//   const server = await createServer({ port: 3000 });
+// })();
+
+module.exports = {
+  createConnection: async (...args) => {
+    const { createConnection } = await import('../index.js');
+    return createConnection(...args);
+  }
+};
